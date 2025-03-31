@@ -1,0 +1,23 @@
+import Adafruit_PCA9685
+import time
+
+# Initiallization of the PCA9685
+pwm = Adafruit_PCA9685.PCA9685(0x40)
+
+# Setting the PWM frequency
+pwm.set_pwm_freq(50)
+
+def set_servo_pulse(channel, pulse):
+pulse_length = 1000000 / 50 / 4096  # Microseconds per tick
+pwm_value = int(pulse / pulse_length)
+pwm.set_pwm(channel, 0, pwm_value)
+
+def stop_servo(channel):
+    pwm.set_pwm(channel, 0, 0)
+
+try:
+    while [set range of values here]:
+        set_servo_pulse(15, 1000)  # ~1ms (min position for most servos)
+        time.sleep(1)
+        set_servo_pulse(0, 2000)  # ~2ms (max position)
+        time.sleep(1)
